@@ -1,7 +1,8 @@
 <?php
 
-include(__DIR__ . "/../../connection/connection.php");
-include(__DIR__ . "/../../utils/utils.php");
+include_once(__DIR__ . "/../../connection/connection.php");
+include_once(__DIR__ . "/../../utils/utils.php");
+include_once(__DIR__ . "/../../models/user.php");
 
 header("Content-Type: application/json");
 
@@ -47,35 +48,22 @@ $phonenb = $data["phonenb"];
 $password = $data["user_password"];
 $confirmpassword = $data["confirm_password"];
 
-$sql= "SELECT id FROM users WHERE email = ? OR phonenb = ?";
-$stmt = $mysqli->prepare($sql);
-$stmt->bind_param("ss", $email, $phonenb);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0)
+if ($password !== $confirmpassword)
 {
-    response(false, "User already exists, please login");
-}
-
-if ($password !== $confirmpassword) {
     response(false, "Passwords do not match");
+    return;
 }
 
-$hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-$sql = "INSERT INTO users (email, fname, lname, phonenb, user_password, is_verified) VALUES (?, ?, ?, ?, ?, 0)";
-
-$stmt = $mysqli->prepare($sql);
-$stmt->bind_param("sssss", $email, $fname, $lname, $phonenb, $hashed_password);
-
-if ($stmt->execute())
+if (!filter_var($email, FILTER_VALIDATE_EMAIL))
 {
-    response(true, "User registered successfully");
-}
-else
-{
-    response(false, "Error: " . $mysqli->error);
-}
+    response(false, "Invalid email format");
+    return;
+}  
+
+$user = new User($mysqli);
+
+$result = $user->createUser($email, $fname, $lname,  $phonenb, $password);
+
+echo json_encode($result);
 
 ?>

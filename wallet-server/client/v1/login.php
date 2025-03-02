@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include(__DIR__ . "/../../connection/connection.php");
 include(__DIR__ . "/../../utils/utils.php");
 
@@ -22,6 +22,7 @@ if(!isset($data["login"]))
 else if (!isset($data["user_password"]))
 {
     response(false,"Please enter your password");
+    return;
 }
 
 $login = $data["login"];
@@ -53,12 +54,19 @@ $result = $stmt->get_result();
 if ($result->num_rows !== 1)
 {
     response(false, "User not found");
+    return;
 }
 $user = $result->fetch_assoc();
     
     if (password_verify($password, $user["user_password"]))
-    {
-        response(true, "Login successful");
+    {   
+         $_SESSION["user_id"] = $user["id"];
+         response(true, [
+            "message" => "Login successful",
+            "session_id" => session_id(),  // Print the session ID
+            "stored_session" => $_SESSION  // Print all session variables
+        ]);
+    
     }
     else
     {

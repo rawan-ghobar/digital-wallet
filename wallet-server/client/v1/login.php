@@ -63,10 +63,12 @@ $user = $result->fetch_assoc();
          $_SESSION["user_id"] = $user["id"];
          response(true, [
             "message" => "Login successful",
-            "session_id" => session_id(),  // Print the session ID
-            "stored_session" => $_SESSION  // Print all session variables
+            "session_id" => session_id(),  
+            "stored_session" => $_SESSION 
         ]);
-    
+        $log = new ActivityLog($mysqli);
+        $log->logActivity($user["id"], null, "User logged in with email: " . $user["email"]);
+
     }
     else
     {

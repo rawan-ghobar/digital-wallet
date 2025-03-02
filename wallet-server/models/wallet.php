@@ -27,6 +27,9 @@ class Wallet
         if ($stmt->execute())
         {
             response(true, "Wallet added successfully");
+            $log = new ActivityLog($mysqli);
+            $log->logActivity($_SESSION["user_id"], null, "User created a wallet: $wallet_name");
+
         }
         else
         {
@@ -34,23 +37,32 @@ class Wallet
         }
     }
 
-    public function readWallet($walletId)
-    {
-        $sql = "SELECT wallet_name, wallet_balance FROM wallets WHERE id = ?";
-        $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("i", $walletId);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    public function readWallet($userId)
+{
+    $sql = "SELECT id AS wallet_id, wallet_name, wallet_balance FROM wallets WHERE user_id = ?";
+    $stmt = $this->mysqli->prepare($sql);
 
-        if ($result->num_rows == 0)
-        {
-            response(false, "Wallet not found");
-            return;
-        }
-
-        $walletData = $result->fetch_assoc();
-        response(true, ["wallet" => $walletData]);
+    if (!$stmt) {
+        response(false, "Database error: " . $this->mysqli->error);
+        return;
     }
+
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows == 0) {
+        response(false, "No wallets found for this user");
+    }
+
+    $wallets = [];
+    while ($row = $result->fetch_assoc()) {
+        $wallets[] = $row;
+    }
+
+    response(true, ["wallets" => $wallets]);
+}
+
     public function updatewallet($walletId, $wallet_name)
     {
 

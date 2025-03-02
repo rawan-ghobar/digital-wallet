@@ -14,15 +14,15 @@ class Wallet
     
     public function createWallet($userId, $wallet_name, $wallet_pin)
     {
-        if (!ctype_digit($walletPin) || strlen($walletPin) !== 4) {
+        if (!ctype_digit($wallet_pin) || strlen($wallet_pin) !== 4) {
             return response(false, "pin must be exactly 4 digits");
         }
         
-        $hashed_pin = password_hash($wallet_pin, PASSWORD_DEFAULT);
+        $hashed_password = password_hash($wallet_pin, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO wallets (wallet_name, wallet_pin) VALUES (?, ?)";
+        $sql = "INSERT INTO wallets (wallet_name, wallet_pin, user_id) VALUES (?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("ss", $wallet_name, $hashed_password);
+        $stmt->bind_param("ssi", $wallet_name, $hashed_password, $userId);
 
         if ($stmt->execute())
         {

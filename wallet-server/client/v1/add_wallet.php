@@ -1,11 +1,15 @@
 <?php
-
+session_start();
 include_once(__DIR__ . "/../../connection/connection.php");
 include_once(__DIR__ . "/../../utils/utils.php");
-include_once(__DIR__ . "/../../models/user.php");
+include_once(__DIR__ . "/../../models/wallet.php");
 
 header("Content-Type: application/json");
 
+if (!isset($_SESSION["user_id"]))
+{
+    return response(false, "Unauthorized.");
+}
 
 if($_SERVER["REQUEST_METHOD"] !== "POST") 
 {
@@ -17,20 +21,23 @@ $data = getJsonRequestData() ;
 
 if(!isset($data["wallet_name"]))
 {
-    response(false,"Please enter your first name");
+    response(false,"Please enter your wallet name");
+    return;
 }
 else if (!isset($data["wallet_pin"]))
 {
-    response(false,"Please enter your last name");
+    response(false,"Please enter a pin to secure your wallet");
+    return;
 }
 
 
 $wallet_name= $data["wallet_name"];
-$wallet_pin= $data["walet_pin"];
+$wallet_pin= $data["wallet_pin"];
+$userId = $_SESSION["user_id"];
 
-$user = new Wallet($mysqli);
+$wallet = new Wallet($mysqli);
 
-$result = $wallet->createWallet($wallet_name, $wallet_pin);
+$result = $wallet->createWallet($userId, $wallet_name, $wallet_pin);
 
 echo json_encode($result);
 

@@ -18,26 +18,32 @@ $data = getJsonRequestData() ;
 if(!isset($data["fname"]))
 {
     response(false,"Please enter your first name");
+    return;
 }
 else if (!isset($data["lname"]))
 {
     response(false,"Please enter your last name");
+    return;
 }
 else if (!isset($data["email"]))
 {
     response(false,"Please enter your email");
+    return;
 }
 else if (!isset($data["phonenb"]))
 {
     response(false,"Please enter your phone number");
+    return;
 }
 else if (!isset($data["user_password"]))
 {
     response(false,"Please enter your password");
+    return;
 }
 else if (!isset($data["confirm_password"]))
 {
     response(false,"Please confirm password");
+    return;
 }
 
 

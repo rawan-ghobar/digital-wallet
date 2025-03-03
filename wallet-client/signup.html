@@ -8,8 +8,7 @@
 </head>
 <body>
     <div class="background">
-        <div class="signupbox">
-
+        <div class="container">
             <div class="boxlogo">
                 <img src="/wallet-client/assets/images/logo.png">
             </div>
@@ -32,13 +31,19 @@
                 </div>
                 <div class="form-field">
                     <label for="phonenb">Phone number*</label>
-                    <input type="tel" placeholder="Enter your phone number here" name="phonenb" id="phonenb">
+                    <input type="tel" placeholder="Phone Number" name="phonenb" id="phonenb">
+                </div>
+                <div class="form-field">
+                    <label for="password">Password*</label>
+                    <input type="text" placeholder="Password" name="password" id="password">
+                </div>
+                <div class="form-field">
+                    <label for="confirm_password">Confirm password*</label>
+                    <input type="text" placeholder="Confirm password" name="confirm_password" id="confirm_password">
                 </div>
                 <button type="submit" class="submit-btn">Create</button>
             </form>
-            <div class="message">
-                
-            </div>
+            <div class="message" id="errorMessage"></div>
             <div class="alternate">
                 <p>Already have an account?</p>
                 <a href="login.html">Login</a>

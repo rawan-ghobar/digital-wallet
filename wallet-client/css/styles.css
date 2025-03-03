@@ -14,22 +14,28 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center; 
-    height: 100%;
+    min-height: 100vh;
     background: linear-gradient(135deg, #4B006E, #6e5484, #4B006E); 
     backdrop-filter: blur(20px);
+    width: 100vw;
 }
 
-.signupbox {
+.message{
+    color: rgb(30, 30, 139)
+}
+
+.container {
     background: rgba(255, 255, 255, 0.949); 
     padding: 30px;
     border-radius: 20px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     width: 90%; 
     max-width: 500px;
+    height: 90%;
 }
 
 .form-field {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .boxlogo{
@@ -71,6 +77,7 @@ label {
 input {
     width: 100%; 
     padding: 10px; 
+    height:30px;
     border: 1px solid #4B006E;
     border-radius: 10px;
 }
@@ -94,6 +101,7 @@ input {
     text-align: center;
     margin-top: 10px;
     color: #4B006E;
+    margin-bottom: 0px;
 }
 
 a {
@@ -138,5 +146,10 @@ a {
     .boxtext > p{
         font-size:2.2em;
     }
+}
+    @media only screen and (max-height: 500px) {
+        .boxtext > p{
+            font-size:1.7em;
+        }
 }
 

@@ -1,0 +1,362 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Jost text";
+}
+
+body {
+    background-color: rgba(255, 255, 255, 0.949);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.navbar {
+    background-color: #4B006E;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.logo-section {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.logo-section img {
+    height: 30px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.949);
+    padding: 8px 15px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.services-btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    z-index: 1;
+    border-radius: 6px;
+    margin-top: 5px;
+}
+
+.dropdown-content a {
+    color: #4B006E !important;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    text-decoration: none !important;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.main-content {
+    text-align: center;
+    padding: 50px 20px;
+    flex: 1;
+}
+
+.main-content > h1{
+    font-family: "Jost";
+}
+
+.main-title {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    color: #4B006E;
+}
+
+.sub-title {
+    font-size: 1.2rem;
+    margin-bottom: 50px;
+    color: #4B006E;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto 40px auto;
+}
+
+.grid-item {
+    background-color: rgba(255, 255, 255, 0.949);
+    border-radius: 8px;
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.grid-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.grid-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.grid-item-label {
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    width: 100%;
+    color: #4B006E;
+    font-size: 0.9rem;
+}
+/* Background Decorations */
+.bg-decoration {
+    position: absolute;
+    z-index: -1;
+    opacity: 0.08;
+}
+
+.wallet-icon-1 {
+    width: 300px;
+    height: 300px;
+    top: 200px;
+    left: -100px;
+    background: #4B006E;
+    clip-path: polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%);
+    transform: rotate(-15deg);
+}
+
+.card-icon {
+    width: 280px;
+    height: 180px;
+    border-radius: 15px;
+    background-color: #4B006E;
+    bottom: 250px;
+    right: -80px;
+    transform: rotate(15deg);
+}
+
+.coin-icon-1 {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #4B006E;
+    top: 500px;
+    right: 100px;
+    box-shadow: inset 0 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.coin-icon-2 {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #4B006E;
+    bottom: 150px;
+    left: 80px;
+    box-shadow: inset 0 0 0 12px rgba(255, 255, 255, 0.1);
+}
+
+.wave-bg {
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(180deg, rgba(75, 0, 110, 0.05) 0%, rgba(75, 0, 110, 0) 100%);
+    top: 300px;
+    z-index: -1;
+    transform: skewY(-5deg);
+}
+
+.dots-pattern {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-image: radial-gradient(#4B006E 1px, transparent 2px);
+    background-size: 15px 15px;
+    top: 400px;
+    left: 50px;
+    opacity: 0.07;
+}
+/* Footer Styles */
+.footer {
+    background-color: #4B006E;
+    color: white;
+    padding: 40px 0 20px;
+    margin-top: 80px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    margin-bottom: 30px;
+    min-width: 200px;
+}
+
+.footer-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-section h3:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background-color: white;
+}
+
+.footer-section p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-icons a {
+    display: inline-block;
+}
+
+.social-icons img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s;
+}
+
+.social-icons img:hover {
+    transform: scale(1.2);
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+@font-face {
+    font-family: "Jost text";
+    src: url("/wallet-client/assets/fonts/Jost/static/Jost-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Jost";
+    src: url("/wallet-client/assets/fonts/Jost/static/Jost-Italic.ttf");
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+    }
+    
+    .footer-section {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .dropdown-content {
+        position: static;
+        margin-top: 5px;
+        box-shadow: none;
+    }
+}

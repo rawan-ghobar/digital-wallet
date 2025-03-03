@@ -34,7 +34,6 @@ class Transaction
     $stmt->bind_param("ids", $walletId, $amount, $type);
     $stmt->execute();
 
-    // ✅ Send a notification after transaction
     $notification = new Notification($this->mysqli);
     $notification->createNotification($userId, "New $type transaction of $$amount");
 

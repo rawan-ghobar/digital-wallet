@@ -8,7 +8,7 @@ $sql= " CREATE TABLE transactions(
         transaction_type varchar(100) NOT NULL,
         done_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         user_id int NOT NULL,
-        wallet_id int,
+        wallet_id int, 
         card_id int,
         amount decimal(10,2) NOT NULL,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,

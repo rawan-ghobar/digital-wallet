@@ -2,7 +2,7 @@
 session_start();
 include(__DIR__ . "/../../connection/connection.php");
 include(__DIR__ . "/../../utils/utils.php");
-include_once(__DIR__ . "/../../models/admin.php");
+
 
 header("Content-Type: application/json");
 

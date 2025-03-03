@@ -13,7 +13,8 @@ $sql= "CREATE TABLE activity_logs(
 
 if ($mysqli->query($sql) === TRUE) {
     echo "Activity Logs table created successfully";
-} else {
-    echo "Error: " . $mysqli->error;
+} else
+{ 
+    echo "Error:  " . $mysqli->error;
 }
 ?>

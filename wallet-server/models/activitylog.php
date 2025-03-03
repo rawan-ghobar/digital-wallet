@@ -16,7 +16,6 @@ class ActivityLog
         $stmt->execute();
     }
 
-    // ✅ Get all activity logs (for admin panel)
     public function getAllLogs()
     {
         $sql = "SELECT activity_logs.id, activity_logs.action, activity_logs.created_at, 
@@ -29,7 +28,8 @@ class ActivityLog
         $result = $this->mysqli->query($sql);
         $logs = [];
 
-        while ($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc())
+        {
             $logs[] = $row;
         }
 

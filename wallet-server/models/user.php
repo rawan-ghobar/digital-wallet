@@ -35,6 +35,8 @@ class User
         if ($stmt->execute())
         {
             response(true, "User registered successfully");
+            $log = new ActivityLog($this->mysqli);
+            $log->logActivity($userId, null, "User signed up with email: $email");
         }
         else
         {

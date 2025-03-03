@@ -7,6 +7,25 @@
     <link rel="stylesheet" href="/wallet-client/css/styles.css">
 </head>
 <body>
+    <div class="navbar">
+        <div class="logo-section">
+            <a href="home.html"><img src="/wallet-client/assets/images/logo2.png" alt="Yalla Pay Logo"></a>
+        </div>
+        <div class="nav-links">
+            <div class="dropdown">
+                <a href="#" class="services-btn">Services ▼</a>
+                <div class="dropdown-content">
+                    <a href="wallets.html">My Wallets</a>
+                    <a href="withdraw.html">Withdraw</a>
+                    <a href="deposit.html">Deposit</a>
+                    <a href="p2p.html">P2P</a>
+                </div>
+            </div>
+            <a href="verify_account.html">Verify account</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="login.html">Logout</a>
+        </div>
+    </div>
     <div class="background">
         <div class="container">
             <div class="boxlogo">
@@ -15,7 +34,6 @@
             <div class="boxtext">
                 <p>Deposit</p>
             </div>
-
             <form class="signup-form">
                 <div class="form-field">
                     <label for="wallet_id">Wallet ID*</label>
@@ -27,7 +45,7 @@
                 </div>
                 <div class="form-field">
                     <label for="amount">Amount*</label>
-                    <input type="amount" placeholder="Amount to be depositede" name="amount" id="amount">
+                    <input type="amount" placeholder="Amount to be deposited" name="amount" id="amount">
                 </div>
                 <button type="submit" class="submit-btn">Deposit</button>
             </form>

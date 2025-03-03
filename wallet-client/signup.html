@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup to YallaPay!</title>
+    <link rel="stylesheet" href="/wallet-client/css/styles.css">
+</head>
+<body>
+    <div class="background">
+        <div class="signupbox">
+
+            <div class="boxlogo">
+                <img src="/wallet-client/assets/images/logo.png">
+            </div>
+            <div class="boxtext">
+                <p>Create your own digital wallet now!</p>
+            </div>
+
+            <form action="signup.php" class="signup-form">
+                <div class="form-field">
+                    <label for="fname">First Name*</label>
+                    <input type="text" placeholder="Enter your first name here" name="fname" id="fname">
+                </div>
+                <div class="form-field">
+                    <label for="lname">Last Name*</label>
+                    <input type="text" placeholder="Enter your last name here" name="lname" id="lname">
+                </div>
+                <div class="form-field">
+                    <label for="email">Email*</label>
+                    <input type="email" placeholder="Enter email address here" name="email" id="email">
+                </div>
+                <div class="form-field">
+                    <label for="phonenb">Phone number*</label>
+                    <input type="tel" placeholder="Enter your phone number here" name="phonenb" id="phonenb">
+                </div>
+                <button type="submit" class="submit-btn">Create</button>
+            </form>
+            <div class="message">
+                
+            </div>
+            <div class="alternate">
+                <p>Already have an account?</p>
+                <a href="login.html">Login</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

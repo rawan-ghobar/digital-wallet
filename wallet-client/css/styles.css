@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%; 
+    font-family: "Jost text";
+    font-size:x-small;
+}
+
+.background {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 100%;
+    background: linear-gradient(135deg, #4B006E, #6e5484, #4B006E); 
+    backdrop-filter: blur(20px);
+}
+
+.signupbox {
+    background: rgba(255, 255, 255, 0.949); 
+    padding: 30px;
+    border-radius: 20px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    width: 90%; 
+    max-width: 500px;
+}
+
+.form-field {
+    margin-bottom: 20px;
+}
+
+.boxlogo{
+    height:10%;
+    width:100%;
+    margin-bottom: 5px;
+}
+
+.boxlogo > img{
+
+    height:100%;
+    width:20%;
+    object-fit: cover;
+}
+
+.boxtext
+{
+    width:100%;
+    height:10%;
+}
+
+.boxtext > p
+{
+    width:100%;
+    height:100%;
+    color:#4B006E;
+    font-size:2em;
+    font-family: "Jost";
+    margin-bottom: 5px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #4B006E;
+    font-size: 1em;
+}
+
+input {
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #4B006E;
+    border-radius: 10px;
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: #4B006E;
+    color: white;
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px;
+    cursor:pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #372049; 
+}
+
+.alternate p, .alternate a {
+    text-align: center;
+    margin-top: 10px;
+    color: #4B006E;
+}
+
+a {
+    color: inherit;
+    display:block;
+}
+
+@font-face {
+    font-family: "Jost";
+    src: url("/wallet-client/assets/fonts/Jost/static/Jost-Italic.ttf");
+}
+
+@font-face {
+    font-family: "Jost text";
+    src: url("/wallet-client/assets/fonts/Jost/static/Jost-Medium.ttf");
+}
+
+@media only screen and (max-width: 460px) {
+    .boxtext > p{
+        font-size: 1.8em;
+    }
+    label{
+        font-size:0.7em;
+    }
+  }
+
+@media only screen and (max-width: 361px) {
+    .boxtext > p{
+        font-size:1.5em;
+    }
+    label{
+        font-size:0.5em;
+    }
+}
+
+ @media only screen and (min-height: 700px) {
+        label{
+            font-size:1.2em;
+        }
+  }
+@media only screen and (min-height: 900px) {
+    .boxtext > p{
+        font-size:2.2em;
+    }
+}
+

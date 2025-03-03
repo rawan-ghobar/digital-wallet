@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup to YallaPay!</title>
+    <link rel="stylesheet" href="/wallet-client/css/styles.css">
+</head>
+<body>
+    <div class="background">
+        <div class="container">
+            <div class="boxlogo">
+                <img src="/wallet-client/assets/images/logo.png">
+            </div>
+            <div class="boxtext">
+                <p>Deposit</p>
+            </div>
+
+            <form class="signup-form">
+                <div class="form-field">
+                    <label for="wallet_id">Wallet ID*</label>
+                    <input type="text" placeholder="Wallet Id" name="wallet_id" id="wallet_id">
+                </div>
+                <div class="form-field">
+                    <label for="wallet_pin">Wallet Pin*</label>
+                    <input type="text" placeholder="Wallet pin" name="wallet_pin" id="wallet_pin">
+                </div>
+                <div class="form-field">
+                    <label for="amount">Amount*</label>
+                    <input type="amount" placeholder="Amount to be depositede" name="amount" id="amount">
+                </div>
+                <button type="submit" class="submit-btn">Deposit</button>
+            </form>
+            <div class="emessage" id="errorMessage"></div>
+            <div class="smessage" id="successMessage"></div>
+        </div>
+    </div>
+</body>
+</html>

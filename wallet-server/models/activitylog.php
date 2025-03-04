@@ -14,6 +14,9 @@ class ActivityLog
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("iis", $userId, $adminId, $action);
         $stmt->execute();
+        if ($execute === false) {
+            die('Execute error: ' . $this->mysqli->error);
+        }
     }
 
     public function getAllLogs()

@@ -2,6 +2,7 @@
 session_start();
 include(__DIR__ . "/../../connection/connection.php");
 include(__DIR__ . "/../../utils/utils.php");
+include_once(__DIR__ . "/../../models/activitylog.php");
 
 header("Content-Type: application/json"); //this is to tell the browser that the response will be in json format
 
@@ -66,8 +67,8 @@ $user = $result->fetch_assoc();
             "session_id" => session_id(),  
             "stored_session" => $_SESSION 
         ]);
-        $log = new ActivityLog($mysqli);
-        $log->logActivity($user["id"], null, "User logged in with email: " . $user["email"]);
+        /*$log = new ActivityLog($mysqli);
+        $log->logActivity($user["id"], null, "User logged in with email: " . $user["email"]);*/
 
     }
     else

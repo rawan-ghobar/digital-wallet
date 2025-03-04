@@ -1,6 +1,8 @@
 <?php
 include_once(__DIR__ . "/../connection/connection.php");
 include_once(__DIR__ . "/../utils/utils.php");
+include_once(__DIR__ . '/activitylog.php');
+
 
 
 class User
@@ -35,8 +37,7 @@ class User
         if ($stmt->execute())
         {
             response(true, "User registered successfully");
-            $log = new ActivityLog($this->mysqli);
-            $log->logActivity($userId, null, "User signed up with email: $email");
+            
         }
         else
         {

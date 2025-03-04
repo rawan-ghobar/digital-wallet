@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup to YallaPay!</title>
     <link rel="stylesheet" href="/wallet-client/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/signup.js"></script>
+    
 </head>
 <body>
     <div class="background">
@@ -41,7 +44,7 @@
                     <label for="confirm_password">Confirm password*</label>
                     <input type="text" placeholder="Confirm password" name="confirm_password" id="confirm_password">
                 </div>
-                <button type="submit" class="submit-btn">Create</button>
+                <button type="button" class="submit-btn" id="signup-btn">Create</button>
             </form>
             <div class="message" id="errorMessage"></div>
             <div class="alternate">

@@ -70,6 +70,6 @@ $user = new User($mysqli);
 
 $result = $user->createUser($email, $fname, $lname,  $phonenb, $password);
 
-echo json_encode($result);
+json_encode($result);
 
 ?>

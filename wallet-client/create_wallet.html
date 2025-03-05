@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create wallet</title>
+    <link rel="stylesheet" href="/wallet-client/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/create_wallet.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo-section">
+            <a href="home.html"><img src="/wallet-client/assets/images/logo2.png" alt="Yalla Pay Logo"></a>
+        </div>
+        <div class="nav-links">
+            <div class="dropdown">
+                <a href="#" class="services-btn">Services ▼</a>
+                <div class="dropdown-content">
+                    <a href="wallets.html">My Wallets</a>
+                    <a href="withdraw.html">Withdraw</a>
+                    <a href="deposit.html">Deposit</a>
+                    <a href="p2p.html">P2P</a>
+                </div>
+            </div>
+            <a href="verify_account.html">Verify account</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="login.html">Logout</a>
+        </div>
+    </div>
+    <div class="background">
+        <div class="container">
+            <div class="boxlogo">
+                <img src="/wallet-client/assets/images/logo.png">
+            </div>
+            <div class="boxtext">
+                <p>Create a new wallet</p>
+            </div>
+
+            <form class="signup-form">
+                <div class="form-field">
+                    <label for="wallet_id">Wallet Name*</label>
+                    <input type="text" placeholder="e.g: online shopping" name="wallet_name" id="wallet_name">
+                </div>
+                <div class="form-field">
+                    <label for="wallet_pin">Wallet Pin*</label>
+                    <input type="text" placeholder="Wallet pin" name="wallet_pin" id="wallet_pin">
+                </div>
+                <button type="button" class="submit-btn" id="wallet-create-btn">Create</button>
+            </form>
+            <div class="emessage" id="errorMessage"></div>
+            <div class="smessage" id="successMessage"></div>
+        </div>
+    </div>
+        <!-- Popup Box -->
+    <div id="popupBox" class="popupbox">
+        <div class="popup-content">
+            <span id="popupMessage"></span>
+            <br><br>
+            <button id="popupClose" class="create-wallet-btn">Close</button>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -17,6 +17,16 @@ class Wallet
         if (!ctype_digit($wallet_pin) || strlen($wallet_pin) !== 4) {
             return response(false, "pin must be exactly 4 digits");
         }
+        $sql = "SELECT wallet_name FROM wallets WHERE user_id = ? AND wallet_name = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("is", $userId, $wallet_name);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            response(false, "Wallet already exists, please choose a new name");
+            return;
+        }
         
         $hashed_password = password_hash($wallet_pin, PASSWORD_DEFAULT);
 
@@ -27,8 +37,8 @@ class Wallet
         if ($stmt->execute())
         {
             response(true, "Wallet added successfully");
-            $log = new ActivityLog($mysqli);
-            $log->logActivity($_SESSION["user_id"], null, "User created a wallet: $wallet_name");
+            /*$log = new ActivityLog($mysqli);
+            $log->logActivity($_SESSION["user_id"], null, "User created a wallet: $wallet_name");*/
 
         }
         else

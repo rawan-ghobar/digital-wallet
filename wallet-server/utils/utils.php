@@ -43,6 +43,31 @@ function getUserIdFromToken()
     }
     return $userId;
 }
+function getAdminIdFromToken() 
+{
+    $headers = getallheaders();
+    if (!isset($headers["Authorization"])) {
+        response(false, "No authorization header found");
+        exit;
+    }
+
+    $authHeader = $headers["Authorization"];
+    list($bearer, $jwtToken) = explode(' ', $authHeader, 2);
+    if ($bearer !== 'Bearer') {
+        response(false, "Invalid Authorization header format");
+        exit;
+    }
+
+    $secretKey = "YOUR_SUPER_SECRET_KEY"; 
+    try {
+        $decoded = JWT::decode($jwtToken, new Key($secretKey, 'HS256'));
+        $userId = $decoded->admin_id; 
+    } catch (Exception $e) {
+        response(false, "Invalid or expired token: " . $e->getMessage());
+        exit;
+    }
+    return $adminId;
+}
 
 
 ?>

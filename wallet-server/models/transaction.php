@@ -16,10 +16,6 @@ class Transaction
             exit;
         }
         
-
-        error_log("Received: Wallet ID = $walletId, Wallet Pin = $walletPin, Amount = $amount");
-
-
         $stmt = $this->mysqli->prepare("SELECT * FROM wallets WHERE id = ? AND wallet_pin = ?");
         
         if (!$stmt) {
@@ -30,9 +26,6 @@ class Transaction
         $stmt->bind_param("is", $walletId, $walletPin);
         $stmt->execute();
         $result = $stmt->get_result();
-
-        
-        
         
         if ($result->num_rows === 0) {
             response(false, "Invalid wallet ID or PIN");
@@ -64,18 +57,21 @@ class Transaction
 
     public function withdraw($walletId, $walletPin, $amount)
     {
-        if (!$walletId || !$walletPin || !$amount) {
-            response(false,"Please fill out all required fields");
+        if (empty($walletId) || empty($walletPin) || empty($amount)) {
+            response(false, "Please fill out all required fields");
+            exit;
         }
 
-        $stmt = $this->mysqli->prepare("SELECT wallet_balance FROM wallets WHERE id = ? AND pin = ?");
+        $stmt = $this->mysqli->prepare("SELECT wallet_balance FROM wallets WHERE id = ? AND wallet_pin = ?");
         $stmt->bind_param("is", $walletId, $walletPin);
         $stmt->execute();
         $result = $stmt->get_result();
-        if ($result->num_rows === 0) {
-            response(false,"Invalid wallet id / pin");
+        
+        if ($result->num_rows === 0)
+        {
+            response(false, "Invalid wallet ID or PIN");
+            exit;
         }
-
         $wallet = $result->fetch_assoc();
         $currentBalance = (float)$wallet['wallet_balance'];
 
@@ -85,14 +81,14 @@ class Transaction
         }
 
         $newBalance = $currentBalance - $amount;
-        $stmt = $this->mysqli->prepare("UPDATE wallets SET wallet_balance = ? WHERE id = ? AND pin = ?");
+        $stmt = $this->mysqli->prepare("UPDATE wallets SET wallet_balance = ? WHERE id = ? AND wallet_pin = ?");
         $stmt->bind_param("dis", $newBalance, $walletId, $walletPin);
         $stmt->execute();
 
-        $transactionResult = $this->createTransaction($walletId, $amount, 'withdraw');
-        if (!$transactionResult['success']) {
-            return $transactionResult;
-        }
+        // $transactionResult = $this->createTransaction($walletId, $amount, 'withdraw');
+        // if (!$transactionResult['success']) {
+        //     return $transactionResult;
+        // }
 
         response(true,"Withdrawal successful");
     }
@@ -103,7 +99,7 @@ class Transaction
             response(false,"Please fill out all fields");
         }
 
-        $stmt = $this->mysqli->prepare("SELECT wallet_balance FROM wallets WHERE id = ? AND pin = ?");
+        $stmt = $this->mysqli->prepare("SELECT wallet_balance FROM wallets WHERE id = ? AND wallet_pin = ?");
         $stmt->bind_param("is", $senderWalletId, $senderPin);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -151,6 +147,7 @@ class Transaction
         }
 
         response(true,"Transfer successful!");
+        exit;
     }
 
     public function createTransaction($walletId, $amount, $type)

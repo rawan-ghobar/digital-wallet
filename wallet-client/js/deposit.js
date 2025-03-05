@@ -13,7 +13,7 @@ const request = (url, data) => {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const walletId = document.getElementById("wallet_id");
+    const walletId = document.getElementById("swallet_id");
     const walletPin = document.getElementById("wallet_pin");
     const amount   = document.getElementById("amount");
     const errorMessage = document.getElementById("errorMessage");

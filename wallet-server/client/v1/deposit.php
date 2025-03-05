@@ -10,6 +10,7 @@ if($_SERVER["REQUEST_METHOD"] !== "POST")
     exit;
 }
     $data = getJsonRequestData() ;
+    
     $walletId  = intval($data['wallet_id']);
     $walletPin = $data['wallet_pin'];
     $amount    = floatval($data['amount']);

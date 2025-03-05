@@ -94,85 +94,79 @@ class Transaction
     }
 
     public function p2p($senderWalletId, $senderPin, $receiverWalletId, $amount)
-    {
-        if (!$senderWalletId || !$senderPin || !$receiverWalletId || !$amount) {
-            response(false,"Please fill out all fields");
-        }
+{
+    
+    if (empty($senderWalletId) || empty($senderPin) || empty($receiverWalletId) || empty($amount)) {
+        response(false, "Please fill out all fields");
+        exit;
+    }
+    
+    $stmt = $this->mysqli->prepare("SELECT wallet_balance FROM wallets WHERE id = ? AND wallet_pin = ?");
+    if (!$stmt) {
+        response(false, "Error preparing sender query: " . $this->mysqli->error);
+        exit;
+    }
+    $stmt->bind_param("is", $senderWalletId, $senderPin);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows === 0) {
+        response(false, "Invalid sender wallet ID or PIN");
+        exit;
+    }
+    $senderWallet = $result->fetch_assoc();
+    $senderBalance = (float)$senderWallet['wallet_balance'];
+    $stmt->close();
 
-        $stmt = $this->mysqli->prepare("SELECT wallet_balance FROM wallets WHERE id = ? AND wallet_pin = ?");
-        $stmt->bind_param("is", $senderWalletId, $senderPin);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows === 0) {
-            response(false,"Invalid wallet id / pin");
-        }
-
-        $senderWallet = $result->fetch_assoc();
-        $senderBalance = (float)$senderWallet['wallet_balance'];
-
-        if ($senderBalance < $amount) {
-            response(false,"Insufficient funds");
-            exit;
-        }
-
-        $newSenderBalance = $senderBalance - $amount;
-        $stmt = $this->mysqli->prepare("UPDATE wallets SET wallet_balance = ? WHERE id = ?");
-        $stmt->bind_param("di", $newSenderBalance, $senderWalletId);
-        $stmt->execute();
-
-        $stmt = $this->mysqli->prepare("SELECT wallet_balance FROM wallets WHERE id = ?");
-        $stmt->bind_param("i", $receiverWalletId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows === 0) {
-            response(false,"Invalidreciever wallet id / pin");
-        }
-
-        $receiverWallet = $result->fetch_assoc();
-        $receiverBalance = (float)$receiverWallet['wallet_balance'];
-
-        $newReceiverBalance = $receiverBalance + $amount;
-        $stmt = $this->mysqli->prepare("UPDATE wallets SET wallet_balance = ? WHERE id = ?");
-        $stmt->bind_param("di", $newReceiverBalance, $receiverWalletId);
-        $stmt->execute();
-
-        $senderTxn = $this->createTransaction($senderWalletId, $amount, 'transfer');
-        if (!$senderTxn['success']) {
-            return $senderTxn; 
-        }
-
-        $receiverTxn = $this->createTransaction($receiverWalletId, $amount, 'transfer');
-        if (!$receiverTxn['success']) {
-            return $receiverTxn;
-        }
-
-        response(true,"Transfer successful!");
+    if ($senderBalance < $amount) {
+        response(false, "Insufficient funds");
         exit;
     }
 
-    public function createTransaction($walletId, $amount, $type)
-    {
-        if (!in_array($type, ['deposit', 'withdraw', 'transfer'])) {
-            response(false,"Invalid transaction type");
-        }
-
-        $sql = "SELECT user_id FROM wallets WHERE id = ?";
-        $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("i", $walletId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows === 0) {
-            response(false,"Wallet not found");
-        }
-
-        $sql = "INSERT INTO transactions (wallet_id, amount, transaction_type) 
-                VALUES (?, ?, ?)";
-        $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("ids", $walletId, $amount, $type);
-        $stmt->execute();
-
-        response(true,"Transaction recorded successfully");
+    $newSenderBalance = $senderBalance - $amount;
+    $stmt = $this->mysqli->prepare("UPDATE wallets SET wallet_balance = ? WHERE id = ?");
+    if (!$stmt) {
+        response(false, "Error preparing sender update: " . $this->mysqli->error);
+        exit;
     }
+    $stmt->bind_param("di", $newSenderBalance, $senderWalletId);
+    if (!$stmt->execute()) {
+        response(false, "Error updating sender wallet: " . $stmt->error);
+        exit;
+    }
+    $stmt->close();
+
+    $stmt = $this->mysqli->prepare("SELECT wallet_balance FROM wallets WHERE id = ?");
+    if (!$stmt) {
+        response(false, "Error preparing receiver query: " . $this->mysqli->error);
+        exit;
+    }
+    $stmt->bind_param("i", $receiverWalletId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows === 0) {
+        response(false, "Invalid receiver wallet ID");
+        exit;
+    }
+    $receiverWallet = $result->fetch_assoc();
+    $receiverBalance = (float)$receiverWallet['wallet_balance'];
+    $stmt->close();
+
+    $newReceiverBalance = $receiverBalance + $amount;
+    $stmt = $this->mysqli->prepare("UPDATE wallets SET wallet_balance = ? WHERE id = ?");
+    if (!$stmt) {
+        response(false, "Error preparing receiver update: " . $this->mysqli->error);
+        exit;
+    }
+    $stmt->bind_param("di", $newReceiverBalance, $receiverWalletId);
+    if (!$stmt->execute()) {
+        response(false, "Error updating receiver wallet: " . $stmt->error);
+        exit;
+    }
+    $stmt->close();
+
+    response(true, "Transfer successful!");
+    exit;
+}
 
     public function viewTransaction($walletId)
     {

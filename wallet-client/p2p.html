@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>p2p</title>
+    <title>Peer to Peer</title>
     <link rel="stylesheet" href="/wallet-client/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/p2p.js"></script>
 </head>
 <body>
     <div class="navbar">
@@ -37,7 +39,7 @@
             <form class="signup-form">
                 <div class="form-field">
                     <label for="wallet_id">Sender's wallet ID*</label>
-                    <input type="text" placeholder="Sender's wallet ID" name="wallet_id" id="wallet_id">
+                    <input type="text" placeholder="Sender's wallet ID" name="wallet_id" id="swallet_id">
                 </div>
                 <div class="form-field">
                     <label for="wallet_pin">Sender's wallet Pin*</label>
@@ -49,9 +51,9 @@
                 </div>
                 <div class="form-field">
                     <label for="wallet_id">Reciever's wallet ID*</label>
-                    <input type="text" placeholder="Reciever's wallet ID" name="wallet_id" id="wallet_id">
+                    <input type="text" placeholder="Reciever's wallet ID" name="wallet_id" id="rwallet_id">
                 </div>
-                <button type="submit" class="submit-btn">Send</button>
+                <button type="button" class="submit-btn" id="send-btn">Send</button>
             </form>
             <div class="emessage" id="errorMessage"></div>
             <div class="smessage" id="successMessage"></div>

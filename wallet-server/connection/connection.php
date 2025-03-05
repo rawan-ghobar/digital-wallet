@@ -6,8 +6,8 @@ header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 $host= "localhost";
 $user= "root";
-$password= "";
-$dbname= "digital-wallet";
+$password= "Rawan1234";
+$dbname= "digital_wallet";
 
 $mysqli = new mysqli ($host, $user, $password, $dbname);
 

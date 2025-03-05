@@ -1,20 +1,26 @@
 <?php
-session_start();
-include(__DIR__ . "/../../connection/connection.php");
-include(__DIR__ . "/../../models/wallet.php");
+include_once(__DIR__ . "/../../connection/connection.php");
 include_once(__DIR__ . "/../../utils/utils.php");
+include_once(__DIR__ . "/../../utils/jwt-loader.php");
+include_once(__DIR__ . "/../../models/wallet.php");
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 header("Content-Type: application/json");
 
-if (!isset($_SESSION["user_id"])) {
-    response(false, "Unauthorized. Please log in");
+if ($_SERVER["REQUEST_METHOD"] !== "GET") {
+    response(false, "Invalid request method");
     exit;
 }
 
-$userId = $_SESSION["user_id"];
+$userId = getUserIdFromToken();
+
+if (!$userId) {
+    response(false, "User not authenticated");
+    exit;
+}
 
 $wallet = new Wallet($mysqli);
-$result = $wallet->readWallet($userId);
-
-echo json_encode($result);
+$wallet->readWallet($userId);
 ?>

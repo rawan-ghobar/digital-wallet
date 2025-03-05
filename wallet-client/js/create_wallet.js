@@ -13,30 +13,14 @@ const request = (url, data, token) => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    // 1) Select elements
+    // Select elements
     const walletName = document.getElementById("wallet_name");
     const walletPin = document.getElementById("wallet_pin");
     const errorMessage = document.getElementById("errorMessage");
+    const successMessage = document.getElementById("successMessage");
     const createBtn = document.getElementById("wallet-create-btn");
 
-    // Popup Elements
-    const popupBox = document.getElementById("popupBox");
-    const popupMessage = document.getElementById("popupMessage");
-    const popupClose = document.getElementById("popupClose");
-
-    // 2) Function to show popup
-    function showPopup(message) {
-        popupMessage.textContent = message;
-        popupBox.style.display = "flex"; // Make popup visible
-    }
-
-    // 3) Close button event listener: Hide popup and redirect
-    popupClose.addEventListener("click", () => {
-        popupBox.style.display = "none";
-        window.location.href = "wallets.html"; // Redirect after closing
-    });
-
-    // 4) Event listener for wallet creation
+    // Event listener for wallet creation
     createBtn.addEventListener("click", async (event) => {
         event.preventDefault();
 
@@ -58,7 +42,13 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Axios Response:", response);
 
             if (response.data.success) {
-                showPopup("Wallet created successfully!");
+                // Assuming API returns an object in response.data.message with wallet details
+                const walletDetails = response.data.message;
+                successMessage.textContent = `Wallet created successfully! Wallet ID: ${walletDetails.wallet_id}, Balance: ${walletDetails.wallet_balance}`;
+                // Redirect after 3 seconds
+                setTimeout(() => {
+                    window.location.href = "wallets.html";
+                }, 3000);
             } else {
                 errorMessage.textContent = response.data.message;
             }

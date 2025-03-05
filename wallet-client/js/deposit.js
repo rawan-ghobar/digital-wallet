@@ -17,18 +17,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const walletPin = document.getElementById("wallet_pin");
     const amount   = document.getElementById("amount");
     const errorMessage = document.getElementById("errorMessage");
-    const depositBtn = document.querySelector("deposit-btn");
+    const successMessage = document.getElementById("successMessage");
+    const depositBtn = document.getElementById("deposit-btn");
 
     depositBtn.addEventListener("click", async (event) => {
         event.preventDefault()
+        const walletIdInt = parseInt(walletId.value, 10);
+        const amountFloat = parseFloat(amount.value);
 
         try {
             const response = await axios.post(
                 "http://localhost/digital-wallet/wallet-server/client/v1/deposit.php",
                 {
-                    wallet_id: walletId.value,
+                    wallet_id: walletIdInt,
                     wallet_pin: walletPin.value,
-                    amount: amount.value
+                    amount: amountFloat
                 },
                 {
                     headers: {
@@ -40,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(response);
 
         if (response.data.success) {
-            window.location.href = 'home.html';
+            successMessage.textContent = response.data.message; 
         } else {
             errorMessage.textContent = response.data.message; 
         }

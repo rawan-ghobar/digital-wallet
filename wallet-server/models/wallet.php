@@ -28,11 +28,11 @@ class Wallet
             return;
         }
         
-        $hashed_password = password_hash($wallet_pin, PASSWORD_DEFAULT);
+       /* $hashed_password = password_hash($wallet_pin, PASSWORD_DEFAULT);*/
 
         $sql = "INSERT INTO wallets (wallet_name, wallet_pin, user_id) VALUES (?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("ssi", $wallet_name, $hashed_password, $userId);
+        $stmt->bind_param("ssi", $wallet_name, $wallet_pin, $userId);
 
         if ($stmt->execute())
         {

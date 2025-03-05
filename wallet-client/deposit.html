@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup to YallaPay!</title>
+    <title>Deposit</title>
     <link rel="stylesheet" href="/wallet-client/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/deposit.js"></script>
 </head>
 <body>
     <div class="navbar">
@@ -47,7 +49,7 @@
                     <label for="amount">Amount*</label>
                     <input type="amount" placeholder="Amount to be deposited" name="amount" id="amount">
                 </div>
-                <button type="submit" class="submit-btn" id="deposit-btn">Deposit</button>
+                <button type="button" class="submit-btn" id="deposit-btn">Deposit</button>
             </form>
             <div class="emessage" id="errorMessage"></div>
             <div class="smessage" id="successMessage"></div>

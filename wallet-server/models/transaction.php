@@ -11,34 +11,56 @@ class Transaction
 
     public function deposit($walletId, $walletPin, $amount)
     {
-        if (!$walletId || !$walletPin || !$amount) {
-            response(false,"Please fill out all required fields");
+        if (empty($walletId) || empty($walletPin) || empty($amount)) {
+            response(false, "Please fill out all required fields");
+            exit;
         }
+        
 
-        $stmt = $this->mysqli->prepare("SELECT balance FROM wallets WHERE id = ? AND pin = ?");
-        $stmt->bind_param("is", $walletId, $walletPin);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows === 0) {
-            response(false,"Invalid wallet id / pin");
+        error_log("Received: Wallet ID = $walletId, Wallet Pin = $walletPin, Amount = $amount");
+
+
+        $stmt = $this->mysqli->prepare("SELECT * FROM wallets WHERE id = ? AND wallet_pin = ?");
+        
+        if (!$stmt) {
+            response(false, "SQL Error (SELECT): " . $this->mysqli->error);
             exit;
         }
 
-        $sql = "UPDATE wallets 
-                   SET wallet_balance = wallet_balance + ?
-                 WHERE id = ?
-                   AND pin = ?";
-        $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("dis", $amount, $walletId, $walletPin);
+        $stmt->bind_param("is", $walletId, $walletPin);
         $stmt->execute();
+        $result = $stmt->get_result();
 
-        $transactionResult = $this->createTransaction($walletId, $amount, 'deposit');
-        if (!$transactionResult['success']) {
-            return $transactionResult;
+        
+        
+        
+        if ($result->num_rows === 0) {
+            response(false, "Invalid wallet ID or PIN");
+            exit;
         }
 
-        response(true,"Deposit successful");
+        $wallet = $result->fetch_assoc();
+        $currentBalance = (float)$wallet['wallet_balance'];
+
+        $sql = "UPDATE wallets SET wallet_balance = wallet_balance + ? WHERE id = ? AND wallet_pin = ?";
+        $stmt = $this->mysqli->prepare($sql);
+
+        if (!$stmt) {
+            response(false, "SQL Error (UPDATE): " . $this->mysqli->error);
+            exit;
+        }
+
+        $stmt->bind_param("dis", $amount, $walletId, $walletPin);
+        
+        if (!$stmt->execute()) {
+            response(false, "Deposit failed: " . $stmt->error);
+            exit;
+        }
+
+        response(true, "Deposit successful");
+        exit;
     }
+
 
     public function withdraw($walletId, $walletPin, $amount)
     {

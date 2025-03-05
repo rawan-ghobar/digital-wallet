@@ -10,12 +10,12 @@ if($_SERVER["REQUEST_METHOD"] !== "POST")
     exit;
 }
     $data = getJsonRequestData() ;
-    $walletId  = $data['wallet_id']  ?? null;
-    $walletPin = $data['wallet_pin'] ?? null;
-    $amount    = floatval($data['amount'] ?? 0);
+    $walletId  = intval($data['wallet_id']);
+    $walletPin = $data['wallet_pin'];
+    $amount    = floatval($data['amount']);
 
     $transaction = new Transaction($mysqli);
     $result = $transaction->deposit($walletId, $walletPin, $amount);
-    json_encode($result);
+    echo json_encode($result);
     exit;
 ?>
